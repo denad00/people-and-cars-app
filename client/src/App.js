@@ -6,10 +6,11 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import 'antd/dist/reset.css'
 import AddCar from './components/forms/AddCar';
+import People from './components/lists/People';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache
 })
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Title />
         <AddPerson />
         <AddCar />
+        <People />
       </div>
     </ApolloProvider>
  

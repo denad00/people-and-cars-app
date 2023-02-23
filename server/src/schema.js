@@ -1,4 +1,5 @@
 import { gql } from "apollo-server-express"
+import { find, remove } from 'lodash'
 
 const people = [
     {
@@ -98,6 +99,7 @@ const cars = [
         id: String!
         firstName: String
         lastName: String
+        cars: [Car]
     }
 
     type Car {
@@ -144,7 +146,7 @@ const cars = [
             const newPerson = {
                 id: args.id,
                 firstName: args.firstName,
-                lastName: args.firstName
+                lastName: args.lastName
             }
 
             people.push(newPerson)

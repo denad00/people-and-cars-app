@@ -19,35 +19,39 @@ const AddCar = () => {
                 name='add-person-form' 
                 form={form}
                 layout='inline'
-                size='large'
                 style={{ marginBottom: '40px '}}
             >
                 <Form.Item
+                    label="Year"
                     name='year'
                     rules={[{ required: true, message: 'Please input the car year!' }]}
                 >
                     <Input placeholder='Year' />
                 </Form.Item>
                 <Form.Item
-                    name='Make'
+                    label="Make"
+                    name='make'
                     rules={[{ required: true, message: 'Please input your car make!' }]}
                 >
                     <Input placeholder='Make'/>
                 </Form.Item>
                 <Form.Item
-                    name='Model'
+                    label="Model"
+                    name='model'
                     rules={[{ required: true, message: 'Please input your car model!' }]}
                 >
                     <Input placeholder='Model'/>
                 </Form.Item>
                 <Form.Item
-                    name='Price'
+                    label="Price"
+                    name='price'
                     rules={[{ required: true, message: 'Please input your car price!' }]}
                 >
                     <Input prefix="$"/>
                 </Form.Item>
                 <Form.Item
-                    name='Person'
+                    label="Person"
+                    name='person'
                     rules={[{ required: true, message: 'Please select the car owner!' }]}
                 >
                     <Select
