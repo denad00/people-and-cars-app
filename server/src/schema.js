@@ -120,6 +120,9 @@ const cars = [
         addPerson(id: String!, firstName: String!, lastName: String!): Person
         updatePerson(id: String!, firstName: String, lastName: String): Person
         removePerson(id: String!): Person
+        addCar(id: String!, year: Float!, model: String!, price: Float!, personId: String!): Car
+        updateCar(id: String!, year: Float, model: String, price: Float, personId: String): Car
+        removeCar(id: String!): Car
     }
 
   `
@@ -167,7 +170,44 @@ const cars = [
             })
 
             return removedPerson
-        }
+        },
+        addCar: (root, args) => {
+            const newCar = {
+                id: args.id,
+                year: args.year,
+                make: args.make,
+                model: args.model,
+                price: args.prince,
+                personId: args.personId
+            }
+
+            cars.push(newCar)
+
+            return newCar
+        },
+        updateCar: (root, args) => {
+            const car = find(cars, { id: args.id })
+            if (!car) throw new Error(`Couldn't find car with id ${args.id}`)
+
+            car.year = args.year
+            car.make = args.make
+            car.model = args.model
+            car.price = args.price
+            car.personId = args.personId
+
+            return car
+        },
+        removeCar: (root, args) => {
+            const removedCar = find(cars, { id: args.id })
+
+            if (!removedCar) throw new Error(`Couldn't find car with id ${args.id}`)
+
+            remove(cars, c => {
+                return c.id === removedCar.id
+            })
+
+            return removedCar
+        },
 
     }
 
