@@ -1,9 +1,9 @@
 import { Card } from "antd"
 import { EditOutlined } from '@ant-design/icons'
 
-import RemovePerson from '../buttons/RemovePerson'
+import RemoveCar from '../buttons/RemoveCar'
 import { useState } from "react"
-import UpdatePerson from "../forms/UpdatePerson"
+import UpdateCar from "../forms/UpdateCar"
 
 const getStyles = () => ({
     card:{
@@ -17,6 +17,7 @@ const CarCard = props => {
     const [make, setMake] = useState(props.make)
     const [model, setModel] = useState(props.model)
     const [price, setPrice] = useState(props.price)
+    const [personId, setPersonId] = useState(props.personId)
     const styles = getStyles()
 
     const [editMode, setEditMode ] = useState(false)
@@ -26,35 +27,46 @@ const CarCard = props => {
         console.log(editMode)
     }
 
-    // const updateStateVariable = (variable, value) => {
-    //     switch(variable){
-    //         case 'firstName':
-    //             setFirstName(value)
-    //             break
-    //         case 'lastName':
-    //             setLastName(value)
-    //             break
-    //         default:
-    //             break
-    //     }
-    // }
+    const updateStateVariable = (variable, value) => {
+        switch(variable){
+            case 'year':
+                setYear(value)
+                break
+            case 'make':
+                setMake(value)
+                break
+            case 'model':
+                setModel(value)
+                break
+            case 'price':
+                setPrice(value)
+                break
+            case 'personId':
+                setPersonId(value)
+            default:
+                break
+        }
+    }
 
     return(
         <div>
             {editMode ? (
-                <UpdatePerson 
+                <UpdateCar
                     onButtonClick={handleButtonClick}
                     id={props.id}
-                    firstName={props.firstName}
-                    lastName={props.lastName}
-                    // updateStateVariable={updateStateVariable}
+                    year={props.year}
+                    make={props.make}
+                    model={props.model}
+                    price={props.price}
+                    personId={personId}
+                    updateStateVariable={updateStateVariable}
                 />
             ) : (
             <Card 
             style={styles.card}
             actions={[
                 <EditOutlined key='edit' onClick={handleButtonClick} />,
-                <RemovePerson id={id}/>
+                <RemoveCar id={id}/>
             ]}
             >
             {year} {make} {model} -> $ {price}

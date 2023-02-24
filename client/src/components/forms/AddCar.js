@@ -1,21 +1,56 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { GET_PEOPLE } from "../../queries"
+import { ADD_CAR, GET_CARS, GET_PEOPLE } from "../../queries"
 
 import { Button, Form, Input, Select } from 'antd'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 
 const AddCar = () => {
     const [id] = useState(uuidv4())
+    const [addCar] = useMutation(ADD_CAR)
 
     const [form] = Form.useForm()
+    const[, forceUpdate] = useState()
+
     const { loading, error, data } = useQuery(GET_PEOPLE)
+
+    useEffect(() => {
+        forceUpdate([])
+    }, [])
 
     if (loading) return 'Loading...'
     if (error) return `Error! ${error.message}`
 
     const handleChange = (value: String) => {
-        console.log(`selected ${value}`)
+        console.log(value)
+    }
+
+    const onFinish = values => {
+        const { year, make, model, price, personId } = values
+        console.log('values', values)
+        console.log(personId)
+        console.log(id)
+
+        addCar({
+            variables:{
+                id,
+                year,
+                make,
+                model,
+                price,
+                personId
+            },
+            update: (cache, { data: {addCar} }) => {
+                const data = cache.readQuery({query:GET_CARS})
+                cache.writeQuery({
+                    query: GET_CARS,
+                    data: {
+                        ...data,
+                        cars: [...data.cars, addCar]
+                    }
+                })
+            }
+        })
     }
 
     return(
@@ -26,6 +61,7 @@ const AddCar = () => {
                 form={form}
                 layout='inline'
                 style={{ marginBottom: '40px '}}
+                onFinish={onFinish}
             >
                 <Form.Item
                     label="Year"
@@ -57,7 +93,7 @@ const AddCar = () => {
                 </Form.Item>
                 <Form.Item
                     label="Person"
-                    name='person'
+                    name='personId'
                     rules={[{ required: true, message: 'Please select the car owner!' }]}
                 >
                     <Select
