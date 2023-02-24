@@ -99,7 +99,7 @@ const cars = [
         id: String!
         firstName: String
         lastName: String
-        cars: [Car]
+
     }
 
     type Car {
@@ -111,11 +111,17 @@ const cars = [
         personId: String
     }
 
+    type PersonWithCars {
+      person: Person!
+      cars: [Car]
+    }
+
     type Query {
-        person(id:String!): Person
-        people: [Person]
-        car(id:String!): Car
-        cars: [Car]
+      person(id:String!): Person
+      people: [Person]
+      car(id:String!): Car
+      cars: [Car]
+      personWithCars: PersonWithCars
     }
 
     type Mutation {
@@ -138,7 +144,8 @@ const cars = [
         cars: () => cars,
         car: (root, args) => {
             return find(cars, { id: args.id })
-        }
+        },
+        personWithCars: () => personWithCars
     },
 
     Mutation: {

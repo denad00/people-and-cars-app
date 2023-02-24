@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client"
-import { List } from "antd"
+import { Card, List } from "antd"
 import PersonCard from "../listItems/PersonCard"
 import { GET_PEOPLE } from "../../queries"
+import Cars from "./Cars"
 
 const getStyles = () => ({
     list:{
@@ -25,7 +26,7 @@ const People = () => {
         >
             {data.people.map(({ id, firstName, lastName }) => (
                 <List.Item key={id}>
-                    <PersonCard key={id} id={id} firstName={firstName} lastName={lastName}/>
+                    <PersonCard key={id} id={id} firstName={firstName} lastName={lastName} />
                 </List.Item>
             ))}
         </List>

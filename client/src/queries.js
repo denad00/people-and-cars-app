@@ -39,3 +39,16 @@ export const REMOVE_PERSON = gql`
         }
     }
 `
+
+export const GET_CARS = gql`
+    {
+        cars{
+            id
+            year
+            make
+            model
+            price
+            personId
+        }
+    }
+`

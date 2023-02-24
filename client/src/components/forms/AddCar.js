@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { GET_PEOPLE } from "../../queries"
 
 import { Button, Form, Input, Select } from 'antd'
+import { useQuery } from '@apollo/client'
 
 const AddCar = () => {
     const [id] = useState(uuidv4())
 
     const [form] = Form.useForm()
+    const { loading, error, data } = useQuery(GET_PEOPLE)
 
-    const handleChange = (value: string) => {
+    if (loading) return 'Loading...'
+    if (error) return `Error! ${error.message}`
+
+    const handleChange = (value: String) => {
         console.log(`selected ${value}`)
     }
 
@@ -57,11 +63,11 @@ const AddCar = () => {
                     <Select
                         defaultValue='Select a person'
                         onChange={handleChange}
-                        options={[
-                            {value: 'jack', label: 'Jack'},
-                            {value: 'dave', label: "Dave"}
-                        ]}
-                    />
+                    >
+                        {data.people.map((option) => (
+                            <Select.Option key={option.id} value={option.id}>{option.firstName} {option.lastName}</Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item shouldUpdate={true}>
                     {() => (
