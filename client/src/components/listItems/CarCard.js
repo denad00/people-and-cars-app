@@ -49,7 +49,7 @@ const CarCard = props => {
     }
 
     return(
-        <div>
+        <div className="car-card">
             {editMode ? (
                 <UpdateCar
                     onButtonClick={handleButtonClick}

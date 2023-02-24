@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { Button, Form, Input } from 'antd'
+import { Button, Divider, Form, Input } from 'antd'
 import { useMutation } from '@apollo/client'
 import { ADD_PERSON, GET_PEOPLE } from '../../queries'
 
@@ -42,7 +42,7 @@ const AddPerson = () => {
 
     return(
         <div className='add-person'>
-            <h2>Add Person</h2>
+            <Divider plain>Add Person</Divider>
             <Form 
                 name='add-person-form' 
                 form={form}

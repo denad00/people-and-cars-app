@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_CAR, GET_CARS, GET_PEOPLE } from "../../queries"
 
-import { Button, Form, Input, Select } from 'antd'
+import { Button, Divider, Form, Input, InputNumber, Select } from 'antd'
 import { useMutation, useQuery } from '@apollo/client'
 
 const AddCar = () => {
@@ -54,10 +54,10 @@ const AddCar = () => {
     }
 
     return(
-        <div className='add-person'>
-            <h2>Add Car</h2>
+        <div className='add-car'>
+            <Divider plain>Add Car</Divider>
             <Form 
-                name='add-person-form' 
+                name='add-car-form' 
                 form={form}
                 layout='inline'
                 style={{ marginBottom: '40px '}}
@@ -68,7 +68,7 @@ const AddCar = () => {
                     name='year'
                     rules={[{ required: true, message: 'Please input the car year!' }]}
                 >
-                    <Input placeholder='Year' />
+                    <InputNumber placeholder='Year'/>
                 </Form.Item>
                 <Form.Item
                     label="Make"
@@ -82,14 +82,14 @@ const AddCar = () => {
                     name='model'
                     rules={[{ required: true, message: 'Please input your car model!' }]}
                 >
-                    <Input placeholder='Model'/>
+                    <Input placeholder='Model' />
                 </Form.Item>
                 <Form.Item
                     label="Price"
                     name='price'
                     rules={[{ required: true, message: 'Please input your car price!' }]}
                 >
-                    <Input prefix="$"/>
+                    <InputNumber prefix="$"/>
                 </Form.Item>
                 <Form.Item
                     label="Person"

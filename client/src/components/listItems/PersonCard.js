@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client"
 import RemovePerson from '../buttons/RemovePerson'
 import { useState } from "react"
 import UpdatePerson from "../forms/UpdatePerson"
+import { Link } from "react-router-dom"
 
 const getStyles = () => ({
     card:{
@@ -68,6 +69,7 @@ const PersonCard = props => {
             {data.cars.map((car) => car.personId === id ? 
                     <CarCard key={car.id} id={car.id} year={car.year} make={car.make} model={car.model} price={car.price}/> : null
                 )}
+                <Link to={`/people/${id}`} state={{id: id}}>Learn More</Link>
             </Card>
             )}
         </div>

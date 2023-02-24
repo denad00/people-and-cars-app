@@ -104,16 +104,11 @@ const cars = [
 
     type Car {
         id: String!
-        year: String
+        year: Int
         make: String
         model: String
-        price: String
+        price: Float
         personId: String
-    }
-
-    type PersonWithCars {
-      person: Person!
-      cars: [Car]
     }
 
     type Query {
@@ -121,15 +116,14 @@ const cars = [
       people: [Person]
       car(id:String!): Car
       cars: [Car]
-      personWithCars: PersonWithCars
     }
 
     type Mutation {
         addPerson(id: String!, firstName: String!, lastName: String!): Person
         updatePerson(id: String!, firstName: String, lastName: String): Person
         removePerson(id: String!): Person
-        addCar(id: String!, year: String!, make: String!, model: String!, price: String!, personId: String!): Car
-        updateCar(id: String!, year: String, make: String, model: String, price: String, personId: String): Car
+        addCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+        updateCar(id: String!, year: Int, make: String, model: String, price: Float, personId: String): Car
         removeCar(id: String!): Car
     }
 
@@ -145,7 +139,6 @@ const cars = [
         car: (root, args) => {
             return find(cars, { id: args.id })
         },
-        personWithCars: () => personWithCars
     },
 
     Mutation: {
@@ -176,6 +169,10 @@ const cars = [
 
             remove(people, c => {
                 return c.id === removedPerson.id
+            })
+
+            remove(cars, c => {
+              return c.personId === removedPerson.id
             })
 
             return removedPerson

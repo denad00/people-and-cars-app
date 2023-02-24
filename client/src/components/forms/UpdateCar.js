@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client"
-import { Form, Input, Button, Select } from "antd"
+import { Form, Input, Button, Select, InputNumber } from "antd"
 import { useState, useEffect } from "react"
 import { UPDATE_CAR, GET_PEOPLE } from "../../queries"
 
@@ -80,7 +80,7 @@ const UpdateCar = props => {
                 name='year'
                 rules={[{ required: true, message: 'Please input the car year!' }]}
                 >
-                <Input 
+                <InputNumber 
                     placeholder='Year' 
                     onChange={e => updateStateVariable('year', e.target.value)}
                 />
@@ -110,7 +110,7 @@ const UpdateCar = props => {
                 name='price'
                 rules={[{ required: true, message: 'Please input your car price!' }]}
             >
-                <Input 
+                <InputNumber
                     prefix="$"
                     onChange={e => updateStateVariable('price', e.target.value)}
                 />

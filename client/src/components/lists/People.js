@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { List } from "antd"
+import { Divider, List } from "antd"
 import PersonCard from "../listItems/PersonCard"
 import { GET_PEOPLE } from "../../queries"
 
@@ -23,6 +23,7 @@ const People = () => {
         grid={{gutter:20, column: 1}} 
         style={styles.list}
         >
+            <Divider plain>Records</Divider>
             {data.people.map(({ id, firstName, lastName }) => (
                 <List.Item key={id}>
                     <PersonCard key={id} id={id} firstName={firstName} lastName={lastName} />
